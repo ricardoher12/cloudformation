@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Script principal de Clodud Formation
+
+Parameters:
+  DBUser:
+    NoEcho: 'true'
+    Description: nombre usuario de BD
+    Type: String
+    Default: ricardoher12
+  DBPass:
+    NoEcho: 'true'
+    Description: nombre usuario de BD
+    Type: String
+    Default: MySecret90
+  DBName:
+    Description: Nombre de la BD
+    Type: String
+    Default: rdhrDB
+  EC2Key:
+    Description: Key a utilizar para conectarme a la instancia de EC2
+    Type: String
+    Default: rdhr_CFKeys
+
+Resources: 
+  VPC: 
+    Type: AWS::CloudFormation::Stack
+    Properties: 
+      TemplateURL: "https://rdhrtemplates.s3-us-west-2.amazonaws.com/vpcCloudFormation.yml"
+  RDS: 
+    Type: AWS::CloudFormation::Stack
+    Properties: 
+      TemplateURL: "https://rdhrtemplates.s3-us-west-2.amazonaws.com/RDSCloudFormation.yml"
+      Parameters: 
+        DBUsername: !Ref DBUser
+        DBPassword: !Ref DBPass
+        DBName: !Ref DBName
+        PrivateSubnetList: !GetAtt VPC.Outputs.PrivateSubnets
+        DBSecurityGroup: !GetAtt VPC.Outputs.RDSSecurityGroup
+      TimeoutInMinutes: 60
+  EC2: 
+    Type: AWS::CloudFormation::Stack
+    Properties: 
+      TemplateURL: "https://rdhrtemplates.s3-us-west-2.amazonaws.com/EC2CloudFormation.yml"
+      Parameters: 
+        DBName: !Ref DBName
+        DBUser: !Ref DBUser
+        DBPass: !Ref DBPass
+        DBHost: !GetAtt RDS.Outputs.RDSEndpoint
+        VPC: !GetAtt VPC.Outputs.VPCID
+        Subnet: !GetAtt VPC.Outputs.PublicSubnet1
+        SecurityGroup: !GetAtt VPC.Outputs.WPSecurityGroup
+        KeyName: !Ref EC2Key
+      TimeoutInMinutes: 60
