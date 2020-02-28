@@ -12,7 +12,7 @@ The rdhrCF.yml file is the master file for the cloud formation, in which all the
 ## VPCCloudFormation file
 The VPCCloudFormation.yml is the file in which  VPC, security groups and publics and privates subnets are configurated. With this template only 3 publics and 3 privates subnets are created. This file has the following parameters:
 
-* VPCCidr: The CIRD that you will use in your net
+* VPCCidr: The CIRD that you will use in your network
 * PublicSubnet1Cidr: the CIDR of the first public subnet
 * PublicSubnet2Cidr: the CIDR of the second public subnet
 * PublicSubnet3Cidr: the CIDR of the third public subnet
