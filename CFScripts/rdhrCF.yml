@@ -20,16 +20,21 @@ Parameters:
     Description: Key a utilizar para conectarme a la instancia de EC2
     Type: String
     Default: rdhr_CFKeys
+  Bucket:
+    Description: Bucket en el que estan almacenados los yml
+    Type: String
+    Dafault: rdhrtemplates.s3-us-west-2.amazonaws.com
 
 Resources: 
   VPC: 
     Type: AWS::CloudFormation::Stack
     Properties: 
-      TemplateURL: "https://rdhrtemplates.s3-us-west-2.amazonaws.com/vpcCloudFormation.yml"
+      TemplateURL: !Sub "https://${Bucket}/vpcCloudFormation.yml" 
+
   RDS: 
     Type: AWS::CloudFormation::Stack
     Properties: 
-      TemplateURL: "https://rdhrtemplates.s3-us-west-2.amazonaws.com/RDSCloudFormation.yml"
+      TemplateURL: !Sub "https://${Bucket}/RDSCloudFormation.yml"
       Parameters: 
         DBUsername: !Ref DBUser
         DBPassword: !Ref DBPass
@@ -40,7 +45,7 @@ Resources:
   EC2: 
     Type: AWS::CloudFormation::Stack
     Properties: 
-      TemplateURL: "https://rdhrtemplates.s3-us-west-2.amazonaws.com/EC2CloudFormation.yml"
+      TemplateURL: !Sub "https://${Bucket}/EC2CloudFormation.yml"
       Parameters: 
         DBName: !Ref DBName
         DBUser: !Ref DBUser
