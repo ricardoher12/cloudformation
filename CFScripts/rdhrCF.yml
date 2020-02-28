@@ -23,7 +23,7 @@ Parameters:
   Bucket:
     Description: Bucket en el que estan almacenados los yml
     Type: String
-    Dafault: rdhrtemplates.s3-us-west-2.amazonaws.com
+    Default: rdhrtemplates.s3-us-west-2.amazonaws.com
 
 Resources: 
   VPC: 
