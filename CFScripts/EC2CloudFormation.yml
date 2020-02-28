@@ -31,12 +31,15 @@ Parameters:
     Description: Nombre de la base de datos
     Type: String
   DBUser:
+    NoEcho: 'true'
     Description: Nombre del usuario de BD
     Type: String
   DBPass:
+    NoEcho: 'true'
     Description: Constraseña de la BD
     Type: String
   DBHost:
+    NoEcho: 'true'
     Description: Host de la base de datos
     Type: String
   InstName:
