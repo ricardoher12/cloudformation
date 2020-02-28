@@ -47,3 +47,7 @@ In the EC2CloduFormation.yml file the EC2 instance for wordpress is configured, 
 * DBPass: the password of the db used for wordpress
 * DBHost: the database's url to which wordpress will connect to
 * InstName: the EC2 instance's name
+
+
+## Project Diagram
+<img src="/CFScripts/cloduformation.png" alt="Cloud Fromation Diagram"/>
